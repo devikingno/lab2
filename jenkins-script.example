@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    environment {
+        PATH = "/root/.nvm/versions/node/v14.17.2/bin:$PATH"
+    }
+    stages {
+		stage('Git clone'){
+			steps{
+				echo 'Clone project'
+				git url: 'https://github.com/lujakob/nestjs-realworld-example-app.git', branch: 'master'
+                sh 'whoami'
+                sh 'pwd'
+                sh 'ls'
+                sh 'node -v'
+			}
+		}
+        stage('configure images') {
+            steps {
+                sh 'docker pull qzpm0645/lab2-app:v2'
+                sh 'docker pull qzpm0645/lab2-app-db:v2'
+                sh 'cp src/config.ts.example src/config.ts'
+                sh 'cp ormconfig.json.example ormconfig.json'
+                sh '''sed -i 's/your-mysql-username/user/; s/your-mysql-password/pass/' ormconfig.json'''
+                sh 'cat ormconfig.json'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'cp docker-compose.yaml.deploy-example docker-compose.yaml'
+                sh 'docker-compose up -d'
+            }
+        }
+    }
+}
