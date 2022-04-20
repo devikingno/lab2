@@ -7,7 +7,6 @@ pipeline {
 		stage('Git clone'){
 			steps{
 				echo 'Clone project'
-				git url: 'https://github.com/lujakob/nestjs-realworld-example-app.git', branch: 'master'
                 sh 'whoami'
                 sh 'pwd'
                 sh 'ls'
