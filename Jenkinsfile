@@ -27,8 +27,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'cp docker-compose.yaml.deploy-example docker-compose.yaml'
-                sh 'sudo docker-compose up -d'
+                withCredentials([file(credentialsId: 'ENV', variable: '')]) {
+                    sh 'cp docker-compose.yaml.deploy-example docker-compose.yaml'
+                    sh 'sudo docker-compose up -d'
+                }
             }
         }
     }
