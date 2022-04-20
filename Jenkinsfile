@@ -2,13 +2,6 @@ pipeline {
     agent any
     environment {
         PATH = "/root/.nvm/versions/node/v14.17.2/bin:$PATH"
-        DATABASE=nestjsrealworld
-        USER=user
-        PASS=pass
-        DB_IMAGES_TAG=10.5.8
-        DB_PORT=3306
-        APP_PORT=3000
-        NETWORKS=test
     }
     stages {
 		stage('Git clone'){
