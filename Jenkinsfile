@@ -23,14 +23,13 @@ pipeline {
                     sh "sed -i 's/your-mysql-username/${USER}/; s/your-mysql-password/${PASS}/' ormconfig.json"
                 }
                 sh 'cat ormconfig.json'
+                sh 'cp .env.example .env'
             }
         }
         stage('Deploy') {
             steps {
-                withCredentials([file(credentialsId: 'ENV', variable: '')]) {
                     sh 'cp docker-compose.yaml.deploy-example docker-compose.yaml'
                     sh 'sudo docker-compose up -d'
-                }
             }
         }
     }
