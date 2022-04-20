@@ -1,27 +1,25 @@
 version: '3.3'
 services:
   app:
-    platform: linux/amd64
     container_name: app
     image: qzpm0645/lab2-app:v2
     ports:
-      -3000:3000
+      - ${APP_PORT}:${APP_PORT}
     networks:
       - test
   db:
-    platform: linux/amd64
     container_name: app-db
     image: qzpm0645/lab2-app-db:v2
     restart: always
     environment:
-      MYSQL_DATABASE: 'nestjsrealworld'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'pass'
-      MYSQL_ROOT_PASSWORD: 'pass'
+      MYSQL_DATABASE: '${DATABASE}'
+      MYSQL_USER: '${USER}'
+      MYSQL_PASSWORD: '${PASS}'
+      MYSQL_ROOT_PASSWORD: '${PASS}'
     ports:
-      - 3306:3306
+      - '${DB_PORT}:${DB_PORT}'
     expose:
-      - '3306'
+      - '${DB_PORT}'
     volumes:
       - my-db:/var/lib/mysql
     networks:

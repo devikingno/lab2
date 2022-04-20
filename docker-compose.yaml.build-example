@@ -5,23 +5,23 @@ services:
     container_name: app
     build: .
     ports:
-      - 3000:3000
+      - ${APP_PORT}:${APP_PORT}
     networks:
       - test
   db:
     platform: linux/amd64
     container_name: app-db
-    image: mariadb:10.5.8
+    image: mariadb:${DB_IMAGES_TAG}
     restart: always
     environment:
-      MYSQL_DATABASE: 'nestjsrealworld'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'pass'
-      MYSQL_ROOT_PASSWORD: 'pass'
+      MYSQL_DATABASE: '${DATABASE}'
+      MYSQL_USER: '${USER}'
+      MYSQL_PASSWORD: '${PASS}'
+      MYSQL_ROOT_PASSWORD: '${PASS}'
     ports:
-      - '3306:3306'
+      - '${DB_PORT}:${DB_PORT}'
     expose:
-      - '3306'
+      - '${DB_PORT}'
     volumes:
       - my-db:/var/lib/mysql
     networks:
@@ -31,4 +31,3 @@ volumes:
 networks:
   test:
     driver: bridge
-#/////////////////
