@@ -4,11 +4,9 @@ pipeline {
         PATH = "/root/.nvm/versions/node/v14.17.2/bin:$PATH"
     }
     stages {
-		stage('Git clone'){
-			steps{
-				echo 'Clone project'
-			}
-		}
+        stage('git clone'){
+            git branch: 'develop', credentialsId: 'Gitlab-ssh', url: 'git@git.vmo.dev:global/vmo-devops-internal/fresher-project/minhha-project-nestjs.git'
+        }
         stage('Pull images and configure') {
             steps {
                 sh 'sudo docker pull qzpm0645/lab2-app:v2'
