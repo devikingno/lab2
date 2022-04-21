@@ -7,15 +7,11 @@ pipeline {
 		stage('Git clone'){
 			steps{
 				echo 'Clone project'
-                sh 'whoami'
-                sh 'pwd'
-                sh 'ls'
-                sh 'node -v'
 			}
 		}
         stage('Pull images and configure') {
             steps {
-                sh 'sudo docker pull qzpm0645/lab2-app:v2'
+                sh 'sudo docker pull qzpm0645/lab2-app:latest'
                 sh 'sudo docker pull qzpm0645/lab2-app-db:v2'
                 sh 'cp src/config.ts.example src/config.ts'
                 sh 'cp ormconfig.json.example ormconfig.json'
